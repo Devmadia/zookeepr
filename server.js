@@ -98,17 +98,44 @@ function findById(id, animalsArray) {
 
 // to create a separate function to handle taking the data from req.body and adding it to our animals.json file
 function createNewAnimal(body, animalsArray) {
-  console.log(body);
-  // our function's main code will go here!
-
-  // return finished code to post route for response
-
   const animal = body;
   animalsArray.push(animal);
 
+  // doesn't require a callback function
+  fs.writeFileSync( 
+    path.join(__dirname, './data/animals.json'),
+    JSON.stringify({ animals: animalsArray }, null, 2)
+  );
   return animal;
+  
+  // console.log(body);
+  // // our function's main code will go here!
+
+  // // return finished code to post route for response
+
+  // const animal = body;
+  // animalsArray.push(animal);
+
+  // return animal;
 
   // return body;
+}
+
+//  take our new animal data from req.body and check if each key not only exists, but that it is also the right type of data
+function validateAnimal(animal) {
+  if (!animal.name || typeof animal.name !== 'string') {
+    return false;
+  }
+  if (!animal.species || typeof animal.species !== 'string') {
+    return false;
+  }
+  if (!animal.diet || typeof animal.diet !== 'string') {
+    return false;
+  }
+  if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)) {
+    return false;
+  }
+  return true;
 }
 
 // set up a route on our server that accepts data to be used or stored server-side
@@ -119,10 +146,15 @@ app.post('/api/animals', (req, res) => {
   // set id based on what the next index of the array will be
   req.body.id = animals.length.toString();
 
+  // if any data in req.body is incorrect, send 400 error back
+  if (!validateAnimal(req.body)) {
+    res.status(400).send('The animal is not properly formatted.');
+  } else {
   // add animal to json file and animals array in this function
   const animal = createNewAnimal(req.body, animals);
 
   res.json(req.body);
+  }
 });
 
 // GET route
