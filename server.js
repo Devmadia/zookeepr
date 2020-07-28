@@ -1,6 +1,9 @@
 const express = require('express'); // require Express.js
 const { animals } = require('./data/animals'); // require animals.json
 
+// set port for Heroku app to run through 3001 instead of default 80
+const PORT = process.env.PORT || 3001;
+
 // Setting up the server: first step to instantiate the server
 const app = express();
 
