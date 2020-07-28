@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const express = require('express'); // require Express.js
 const { animals } = require('./data/animals'); // require animals.json
 
@@ -6,6 +9,12 @@ const PORT = process.env.PORT || 3001;
 
 // Setting up the server: first step to instantiate the server
 const app = express();
+
+
+// parse incoming string or array data
+app.use(express.urlencoded({ extended: true }));
+// parse incoming JSON data
+app.use(express.json());
 
 /*  instead of handling the filter functionality inside 
 the .get() callback, we're going to break it out into its own function. 
@@ -87,6 +96,35 @@ function findById(id, animalsArray) {
   return result;
 }
 
+// to create a separate function to handle taking the data from req.body and adding it to our animals.json file
+function createNewAnimal(body, animalsArray) {
+  console.log(body);
+  // our function's main code will go here!
+
+  // return finished code to post route for response
+
+  const animal = body;
+  animalsArray.push(animal);
+
+  return animal;
+
+  // return body;
+}
+
+// set up a route on our server that accepts data to be used or stored server-side
+app.post('/api/animals', (req, res) => {
+  // req.body is where our incoming content will be
+  // console.log(req.body);
+
+  // set id based on what the next index of the array will be
+  req.body.id = animals.length.toString();
+
+  // add animal to json file and animals array in this function
+  const animal = createNewAnimal(req.body, animals);
+
+  res.json(req.body);
+});
+
 // GET route
 app.get('/api/animals', (req, res) => {
     let results = animals;
@@ -115,3 +153,4 @@ app.listen(PORT, () => {
 // app.listen(3001, () => {
 //     console.log(`API server now on port 3001!`);
 //   });
+
