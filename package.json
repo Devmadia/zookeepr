@@ -1,0 +1,31 @@
+{
+  "name": "zookeepr",
+  "version": "1.0.0",
+  "description": "A webserver for a front-end application to allow animal enthusiasts to access data from different locations and browsers without needing to download it to their devices.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devmadia/zookeepr.git"
+  },
+  "keywords": [
+    "expressjs",
+    "JavaScript",
+    "npm",
+    "zoo",
+    "zookeepr",
+    "webserver"
+  ],
+  "author": "Devmadia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Devmadia/zookeepr/issues"
+  },
+  "homepage": "https://github.com/Devmadia/zookeepr#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
