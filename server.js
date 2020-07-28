@@ -80,12 +80,30 @@ will have to fetch from & a callback function that will execute every time that 
 
 /* This function will take in req.query as an argument and 
 filter through the animals accordingly, returning the new filtered array*/
+
+//  takes in the id and array of animals and returns a single animal object
+function findById(id, animalsArray) {
+  const result = animalsArray.filter(animal => animal.id === id)[0];
+  return result;
+}
+
+// GET route
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query) {
       results = filterByQuery(req.query, results);
     }
     res.json(results);
+});
+
+// new (param) GET route for animals by ID
+app.get('/api/animals/:id', (req, res) => {
+  const result = findById(req.params.id, animals);  // param route must come after GET routes
+  if (result) {
+    res.json(result);
+  } else {
+    res.sendStatus(404); // 404 status code is meant to communicate to the client that the requested resource could not be found
+  }
 });
 
 // Setting up the server: listen for requests
