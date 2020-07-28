@@ -89,6 +89,11 @@ app.get('/api/animals', (req, res) => {
 });
 
 // Setting up the server: listen for requests
-app.listen(3001, () => {
-    console.log(`API server now on port 3001!`);
-  });
+app.listen(PORT, () => {
+  console.log(`API server now on port ${PORT}!`);
+});
+
+// hardcoded port to listen to requests
+// app.listen(3001, () => {
+//     console.log(`API server now on port 3001!`);
+//   });
