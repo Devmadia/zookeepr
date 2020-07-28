@@ -176,6 +176,11 @@ app.get('/api/animals/:id', (req, res) => {
   }
 });
 
+// add a route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html')); // the route used to create a homepage for a server
+});
+
 // Setting up the server: listen for requests
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
