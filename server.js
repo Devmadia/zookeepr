@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 3001;
 // Setting up the server: first step to instantiate the server
 const app = express();
 
+//  instructs the server to make certain files readily available and to not gate it behind a server endpoint
+app.use(express.static('public'));
 
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
