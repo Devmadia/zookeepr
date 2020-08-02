@@ -21,6 +21,8 @@ app.use(express.json());
 app.use('/api', apiRoutes);
 app.use('/', htmlRoutes);
 
+// direction to access public folder data
+app.use(express.static('public'));
 
 // Setting up the server: listen for requests
 app.listen(PORT, () => {
